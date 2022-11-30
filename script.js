@@ -130,7 +130,8 @@ if (choices.symbols == true) {
   selectChar = selectChar.concat(symbols);
 }
 
-function createPassword() {
+//picks char at random
+function getPassword() {
   getPasswordOption();
 
   var passwordChar = "";
@@ -141,7 +142,7 @@ function createPassword() {
   return passwordChar;
 }
 
-// Write password to the #password input
+// Write password to textbox
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("password");
@@ -149,5 +150,4 @@ function writePassword() {
   passwordText.value = password;
 }
 
-// print to text box
 document.getElementById("password").value = password;
