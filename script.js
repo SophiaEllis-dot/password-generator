@@ -88,66 +88,35 @@ var upperCasedCharacters = [
   "Z",
 ];
 
-// Arrays
-var char = [lowerCasedCharacters, upperCasedCharacters];
-var numbers = [numericCharacters];
-var symbols = [specialCharacters];
+var num = [
+  specialCharacters,
+  upperCasedCharacters,
+  lowerCasedCharacters,
+  numericCharacters,
+];
+var passwordBtnEl = $("#generate");
+var passwordDisplayEl = $("#password-display");
 
-// gets password from input, validation on input
-function getPasswordOption() {
-  passwordLength = prompt("Pick your password length between 10-64");
-  {
-    if (passwordLength == null) {
-      return null;
-    } else if (
-      passwordLength < 10 ||
-      passwordLength > 64 ||
-      isNaN(passwordLength)
-    ) {
-      alert("enter number between 10-64");
-      location.reload();
-    }
+// Returns a random character that includes alphanumeric and special character values
+function getPasswordCharacter() {
+  return String.fromCharCode(Math.floor(Math.random() * 77) + 34);
+}
+
+// Returns a string of concatenated characters of length num
+function passwordGenerator(num) {
+  var password = "";
+  for (var i = 0; i < num; i++) {
+    password += getPasswordCharacter();
   }
-}
-getPasswordOption();
-
-var choices = {
-  char: confirm("use lower and upper case characters in your password?"),
-  numbers: confirm("use numbers in your password?"),
-  symbols: confirm("use symbols in your password"),
-};
-
-var selectChar = [];
-if (choices.char == true) {
-  selectChar = selectChar.concat(char);
+  return password;
 }
 
-if (choices.numbers == true) {
-  selectChar = selectChar.concat(numbers);
-}
+// passwordBtnEl.on("dblclick", function () {
+//   var newPassword = passwordGenerator(15);
+//   passwordDisplayEl.text(newPassword);
+// });
 
-if (choices.symbols == true) {
-  selectChar = selectChar.concat(symbols);
-}
-
-//picks char at random
-function getPassword() {
-  getPasswordOption();
-
-  var passwordChar = "";
-  while (passwordChar.length < characterLength) {
-    var index = Math.floor(Math.random() * charChoices.length);
-    passwordChar += option[index];
-  }
-  return passwordChar;
-}
-
-// Write password to textbox
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("password");
-
-  passwordText.value = password;
-}
-
-document.getElementById("password").value = password;
+passwordBtnEl.click(function () {
+  var newPassword = passwordGenerator(15);
+  passwordDisplayEl.text(newPassword);
+});
