@@ -87,36 +87,62 @@ var upperCasedCharacters = [
   "Y",
   "Z",
 ];
+// Arrays
+var num = numericCharacters;
+var lowerCase = lowerCasedCharacters;
+var upperCase = upperCasedCharacters;
+var special = specialCharacters;
 
-var num = [
-  specialCharacters,
-  upperCasedCharacters,
-  lowerCasedCharacters,
-  numericCharacters,
-];
-var passwordBtnEl = $("#generate");
-var passwordDisplayEl = $("#password-display");
+var passwordBtnEl = document.querySelector("#generate");
 
-// Returns a random character that includes alphanumeric and special character values
-function getPasswordCharacter() {
-  return String.fromCharCode(Math.floor(Math.random() * 77) + 34);
+var passwordLength = prompt("Please select password length between 10-64");
+// confirm length
+var passwordEl = parseInt(passwordLength);
+console.log(passwordEl);
+
+// confirm number is between 10-64
+while (passwordEl < 10 || passwordEl > 64) {
+  alert("Please pick a number between 10-64");
+  passwordLength = prompt("Please select password length between 10-64");
 }
 
-// Returns a string of concatenated characters of length num
-function passwordGenerator(num) {
-  var password = "";
-  for (var i = 0; i < num; i++) {
-    password += getPasswordCharacter();
+// Confirm characters used
+var useLower = lowerCase;
+var useUpper = upperCase;
+var useNum = numericCharacters;
+var useSpecial = specialCharacters;
+
+var lowerConfirm = confirm("Use lower case?");
+var upperConfirm = confirm("Use upper case?");
+var numConfirm = confirm("Use numbers?");
+var specialConfirm = confirm("Use special characters?");
+var password = "";
+
+var characters = [];
+
+lowerConfirm ? characters.push(...useLower) : "";
+upperConfirm ? characters.push(...useUpper) : "";
+numConfirm ? characters.push(...useNum) : "";
+specialConfirm ? characters.push(...useSpecial) : "";
+console.log(characters);
+console.log(characters.length);
+console.log(passwordEl);
+
+// generate password
+function generatePassword() {
+  for (let i = 0; i <= passwordEl; i++) {
+    var createdPassword = (password +=
+      characters[Math.floor(Math.random() * characters.length)]);
+    console.log(createdPassword);
   }
-  return password;
+  return createdPassword;
 }
 
-// passwordBtnEl.on("dblclick", function () {
-//   var newPassword = passwordGenerator(15);
-//   passwordDisplayEl.text(newPassword);
-// });
+// print password
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password-display");
+  passwordText.value = password;
+}
 
-passwordBtnEl.click(function () {
-  var newPassword = passwordGenerator(15);
-  passwordDisplayEl.text(newPassword);
-});
+passwordBtnEl.addEventListener("click", writePassword);
