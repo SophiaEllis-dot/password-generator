@@ -12,6 +12,7 @@ This is done with a range of functions used to validate the users input and crea
 ## Live Sites
 
 Live page:
+https://sophiaellis-dot.github.io/password-generator/
 
 ## License
 
